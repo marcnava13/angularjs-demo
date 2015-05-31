@@ -1,0 +1,35 @@
+<div class="page-header" ng-prueba>
+    <h3 class="text-left">Listado de Usuarios</h3>
+    <p class="text-right">Nº de Registros: <span class="label label-success">{{ usuarios.length }}</span></p>
+</div>
+
+<div class="row">
+    <div class="col-sm-8">
+        <table class="table table-striped">
+            <tr class="info">
+                <td class="text-center">Nombre</td>
+                <td class="text-center">Apellidos</td>
+                <td class="text-center">Edad</td>
+            </tr>
+            <tr ng-repeat="usuario in usuarios" ng-click="selectUser(usuario)">
+                <td>{{ usuario.nombre }}</td>
+                <td>{{ usuario.apellido }}</td>
+                <td class="text-center">{{ usuario.edad }}</td>                     
+            </tr>
+        </table>                    
+    </div>
+    <div class="col-sm-4 text-center">
+        <form name="myForm">
+            <div class="form-group">
+                <input type="text" class="form-control input-lg text-center" placeholder="Nombre" ng-model="newUsuarios.nombre" required>
+                <br>
+                <input type="text" class="form-control input-lg text-center" placeholder="Apellido" ng-model="newUsuarios.apellido" required>
+                <br>
+                <input type="text" class="form-control input-lg text-center" placeholder="Edad" ng-model="newUsuarios.edad" required>
+            </div>
+            <button type="submit" class="btn btn-success col-sm-12" ng-click="registrarUsuario()" ng-disabled="myForm.$invalid || selected">Registrar</button>
+            <button type="submit" class="btn btn-warning col-sm-12" ng-click="modificarUsuario(newUsuarios)" ng-disabled="!newUsuarios.nombre || !newUsuarios.apellido || !newUsuarios.edad || !selected">Modificar</button>
+            <button type="submit" class="btn btn-danger col-sm-12" ng-click="borrarUsuario(newUsuarios)" ng-disabled="!newUsuarios.nombre || !newUsuarios.apellido || !newUsuarios.edad || !selected">Borrar</button>
+        </form>
+    </div>
+</div>
