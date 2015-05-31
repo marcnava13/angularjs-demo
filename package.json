@@ -1,7 +1,7 @@
 {
-  "name"         : "Proyecto Base",
+  "name"         : "proyecto_base",
   "version"      : "0.0.1",
-  "description"  : "Proyecto base en MEAN"
+  "description"  : "Proyecto base en MEAN",
   "author"       : "Marcos Navarro",
   "dependencies" : {
     "express"    : "~3.4.4",
