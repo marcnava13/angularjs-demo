@@ -1,35 +1,80 @@
 <div class="page-header" ng-prueba>
     <h3 class="text-left">Listado de Usuarios</h3>
-    <p class="text-right">Nº de Registros: <span class="label label-success">{{ usuarios.length }}</span></p>
+</div>
+
+<div class="row col-sm-12 toolbar-buttons">
+    <button type="button" class="btn btn-default" ng-click="toggleFormUser()" >Nuevo usuario</button>
+</div>
+
+<div class="row wrap-form-admin" ng-hide="form_new_user">
+    <div class="col-sm-12 wrap-form-admin">
+        <form name="form_admin">
+            <div class="form-group">
+                <div class="form-group">
+                    <label for="InputNombre">Nombre *</label>
+                    <input type="text" id="InputNombre" class="form-control" ng-model="newUsuarios.nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="InputEmail">Email *</label>
+                    <input type="email" id="InputEmail" class="form-control" ng-model="newUsuarios.email" required>
+                </div>
+                <div class="form-group">
+                    <label for="InputPassword">Password *</label>
+                    <input type="password" id="InputPassword" class="form-control" ng-model="newUsuarios.password" >
+                </div>    
+                <div class="form-group col-sm-4">
+                    <label for="InputActivo">Activado *</label>
+                    <select required ng-model="newUsuarios.activo" class="form-control" id="InputActivo">
+                        <option value="0">No</option>
+                        <option value="1">Si</option>
+                    </select> 
+                </div>  
+                <div class="form-group col-sm-4">
+                    <label for="InputBloqueado">Bloqueado *</label>
+                    <select required ng-model="newUsuarios.bloqueado" class="form-control" id="InputBloqueado">
+                        <option value="0">No</option>
+                        <option value="1">Si</option>
+                    </select> 
+                </div>  
+                <div class="form-group col-sm-4">
+                    <label for="InputRol">Rol *</label>
+                    <select required ng-model="newUsuarios.rol" class="form-control" id="InputRol">
+                        <option value="1">Super Administrador</option>
+                        <option value="2">Administrador</option>
+                        <option value="3">Usuario</option>
+                    </select>
+                </div>          
+            </div>
+            <button type="submit" class="btn btn-danger col-sm-5 pull-right" ng-click="toggleFormUser()">Cancelar</button>
+            <button type="submit" ng-hide="btn_register" class="btn btn-success col-sm-5 pull-right btn-margin-right@" ng-click="registrarUsuario()" ng-disabled="form_admin.$invalid || selected">Registrar</button>
+            <button type="submit" ng-hide="btn_guardar" class="btn btn-success col-sm-5 pull-right btn-margin-right@" ng-disabled="!newUsuarios.nombre || !newUsuarios.email || !newUsuarios.rol || !selected" ng-click="modificarUsuario(newUsuarios)" ng-disabled="form_admin.$invalid || selected">Guardar</button>
+        </form>
+    </div>
 </div>
 
 <div class="row">
-    <div class="col-sm-8">
+    <p class="text-right">Nº de Registros: <span class="label label-success">{{ usuarios.length }}</span></p>
+    <div class="col-sm-12">
         <table class="table table-striped">
             <tr class="info">
-                <td class="text-center">Nombre</td>
-                <td class="text-center">Apellidos</td>
-                <td class="text-center">Edad</td>
+                <th class="text-left">Nombre</th>
+                <th class="text-left">Email</th>
+                <th class="text-center">Activo</th>
+                <th class="text-center">Bloqueado</th>
+                <th class="text-center">Rol</th>
+                <th class="text-right">Acciones</th>
             </tr>
-            <tr ng-repeat="usuario in usuarios" ng-click="selectUser(usuario)">
+            <tr ng-repeat="usuario in usuarios">
                 <td>{{ usuario.nombre }}</td>
-                <td>{{ usuario.apellido }}</td>
-                <td class="text-center">{{ usuario.edad }}</td>                     
+                <td>{{ usuario.email }}</td>
+                <td class="text-center">{{ usuario.activo }}</td>
+                <td class="text-center">{{ usuario.bloqueado }}</td>
+                <td class="text-center">{{ usuario.rol }}</td>
+                <td class="text-right">
+                    <button type="submit" class="btn btn-warning" ng-click="selectUser(usuario)">Editar</button>
+                    <button type="submit" class="btn btn-danger" ng-click="borrarUsuario(usuario)">Borrar</button>
+                </td>                 
             </tr>
         </table>                    
-    </div>
-    <div class="col-sm-4 text-center">
-        <form name="myForm">
-            <div class="form-group">
-                <input type="text" class="form-control input-lg text-center" placeholder="Nombre" ng-model="newUsuarios.nombre" required>
-                <br>
-                <input type="text" class="form-control input-lg text-center" placeholder="Apellido" ng-model="newUsuarios.apellido" required>
-                <br>
-                <input type="text" class="form-control input-lg text-center" placeholder="Edad" ng-model="newUsuarios.edad" required>
-            </div>
-            <button type="submit" class="btn btn-success col-sm-12" ng-click="registrarUsuario()" ng-disabled="myForm.$invalid || selected">Registrar</button>
-            <button type="submit" class="btn btn-warning col-sm-12" ng-click="modificarUsuario(newUsuarios)" ng-disabled="!newUsuarios.nombre || !newUsuarios.apellido || !newUsuarios.edad || !selected">Modificar</button>
-            <button type="submit" class="btn btn-danger col-sm-12" ng-click="borrarUsuario(newUsuarios)" ng-disabled="!newUsuarios.nombre || !newUsuarios.apellido || !newUsuarios.edad || !selected">Borrar</button>
-        </form>
     </div>
 </div>

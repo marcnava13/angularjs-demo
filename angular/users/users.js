@@ -14,6 +14,9 @@ angular.module('MainApp.users', ['ngRoute'])
     $scope.newUsuarios = {};
     $scope.usuarios = {};
     $scope.selected = false;
+    $scope.form_new_user = true;
+    $scope.btn_register = true;
+    $scope.btn_guardar = true;
 
     $http.get('/api/usuario').success(function(data) {
         $scope.usuarios = data;
@@ -46,7 +49,9 @@ angular.module('MainApp.users', ['ngRoute'])
         });
     };
 
-    $scope.borrarUsuario = function(newUsuarios) {
+    $scope.borrarUsuario = function(usuario) {
+        $scope.newUsuarios = usuario;
+        $scope.selected = true;
         $http.delete('/api/usuario/' + $scope.newUsuarios._id)
         .success(function(data) {
             $scope.newUsuarios = {};
@@ -61,7 +66,16 @@ angular.module('MainApp.users', ['ngRoute'])
     $scope.selectUser = function(usuario) {
         $scope.newUsuarios = usuario;
         $scope.selected = true;
-        console.log($scope.newUsuarios, $scope.selected);
+        $scope.form_new_user = false;
+        $scope.btn_register = true;
+        $scope.btn_guardar = false;
+    };
+
+    $scope.toggleFormUser = function(){
+        $scope.newUsuarios = {};
+        $scope.form_new_user = $scope.form_new_user === false ? true: false;
+        $scope.btn_register = false;
+        $scope.btn_guardar = true;
     };
 
 });

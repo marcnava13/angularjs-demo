@@ -11,9 +11,9 @@ exports.getUsuario = function (req, res){
 };
 
 exports.setUsuario = function(req, res) {
-
+    console.log(req.body);
     Usuario.create(
-        {nombre : req.body.nombre,  apellido: req.body.apellido, edad: req.body.edad}, 
+        {nombre : req.body.nombre, email: req.body.email, password: req.body.password, activo: req.body.activo, bloqueado: req.body.bloqueado, rol: req.body.rol}, 
         function(err, usuario) {
             if (err)
                 res.send(err);
@@ -30,7 +30,7 @@ exports.setUsuario = function(req, res) {
 exports.updateUsuario = function(req, res){
 
     Usuario.update( {_id : req.params.usuario_id},
-        {$set:{nombre : req.body.nombre, apellido: req.body.apellido, edad: req.body.edad}}, 
+        {$set:{nombre : req.body.nombre, email: req.body.email, password: req.body.password, activo: req.body.activo, bloqueado: req.body.bloqueado, rol: req.body.rol}}, 
         function(err, usuario) {
             if (err)
                 res.send(err);
